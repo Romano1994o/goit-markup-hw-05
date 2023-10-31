@@ -13,11 +13,14 @@
 	--clients-icon-color:#8e8f99;
 	--social-list-hover-footer:#31D0AA;
 	--thumb-bg-color:#f5f4fa;
+	--modal-bg-color:#FCFCFC;
+	--product-overlay-bg-color:#4D5AE5;
 }
 
 /* Global styles */
 
 body {
+	
 	font-family: "Roboto", sans-serif;
 	font-weight: 400;
 	font-size: 16px;
@@ -48,16 +51,14 @@ body {
 	text-decoration: none;
 }
 .container {
-	margin-left: auto;
-	margin-right: auto;
-	width: 1158px;
-	padding-right: 15px;
-	padding-left: 15px;
+	margin: 0 auto;
+	max-width: 1158px;
+	padding:0 15px;
+}
+button{
+	cursor:pointer;
 }
 
-.button {
-	cursor: pointer;
-}
 h1,
 h2,
 h3,
@@ -66,17 +67,17 @@ ul {
 	margin: 0;
 }
 .section {
-	padding-top: 96px;
+	padding-top: 120px;
 	padding-bottom: 120px;
 }
 
 /* Nav Section  */
-.page {
-
-	border-bottom: 1px solid var(--footer-inf-color);
+.line {
+    border-bottom: 1px solid var(--footer-inf-color);
 	box-shadow: 0px 2px 1px rgba(46, 47, 66, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 6px rgba(46, 47, 66, 0.08);
-
+    
 }
+
 .page .container {
 	display: flex;
 	align-items: center;
@@ -129,12 +130,28 @@ ul {
 	font-size: 16px;
 	line-height: 1.5;
 	letter-spacing: 0.02em;
-}
-.page-nav-list:hover,
-.page-nav-list:focus {
-	color: var(--active-nav-color);
+
+	transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.page-nav-list .link.current{
+	position:relative;
+	color:var(--active-nav-color)
+}
+.link.current::after{
+	position:absolute;
+	bottom:0;
+	left:0;
+
+	content:'';
+	display:block;
+
+	width:100%;
+	height:4px;
+	border-radius:4px;
+
+	background-color:var(--active-nav-color);
+}
 /* /Nav Section  */
 
 /* Contacts */
@@ -166,7 +183,8 @@ address {
 	line-height: 1.5;
 	letter-spacing: 0.02em;
 	color: var(--primary-font-color);
-	text-decoration: none;
+
+	transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .page-nav-list .link:hover,
@@ -223,12 +241,14 @@ address {
 	box-shadow: 0px 4px 4px var(--active-nav-color);
 	border-radius: 4px;
 	cursor: pointer;
+	transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hero-button:hover,
 .hero-button:focus {
 	background-color: var(--active-nav-color);
 }
+
 
 /* /Hero section */
 
@@ -297,6 +317,8 @@ address {
 	height: 40px;
 	background-color: var(--social-icon-bg-color);
 	fill: var(--section-team-bg-color);
+	transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .icon-item .link:hover,
 .icon-item .link:focus {
@@ -322,9 +344,12 @@ address {
 	box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 2px 1px rgba(46, 47, 66, 0.08);
 	border-radius: 0px 0px 4px 4px;
 }
+
 .team-list .list-information {
 	padding: 32px 16px;
+	
 }
+
 
 .team-list .item:not(:last-child) {
 	margin-right: 24px;
@@ -388,6 +413,8 @@ address {
 	justify-content: center;
 	align-items: center;
 	fill: var(--clients-icon-color);
+	transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .customers-list .link:hover ,
@@ -437,6 +464,8 @@ address {
 	fill:var(--section-team-bg-color) ;
 	border-radius: 50%;
 	background-color: var(--primary-font-color);
+	transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
   }
   .social-list .link:hover,
   .social-list .link:focus {
@@ -498,6 +527,9 @@ address {
 	border-radius: 4px;
 	border: none;
 	cursor: pointer;
+	transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .portfolio .active {
@@ -512,6 +544,40 @@ address {
 	background-color: var(--active-nav-color);
 	box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.08), 0px 2px 2px rgba(0, 0, 0, 0.12);
 }
+
+.product-thumb{
+	position: relative;
+	overflow:hidden;
+}
+
+.product-overlay{
+	position: absolute;
+	top: 0;
+    left: 0;
+	width: 100%;
+	height: 100%;
+	
+	background-color: var(--product-overlay-bg-color);
+
+	transform: translateY(100%);
+	transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.portfolio-list .link:hover .product-overlay,
+.portfolio-list .link:focus .product-overlay {
+	transform:translateY(0);
+}
+
+.thumb-description{
+	position: absolute;
+	padding:40px 32px;
+	color: var(--section-team-bg-color);
+	font-size: 16px;
+	line-height: 1.5;
+	letter-spacing: 0.02em;
+	z-index: 2;
+}
+
 .portfolio-list img {
 	vertical-align: bottom;
 }
@@ -525,8 +591,14 @@ address {
 	margin-bottom: 48px;
 }
 
-.portfolio-list .item:hover,
-.portfolio-list .item:focus {
+.portfolio-list .link {
+	display: block;
+	transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+	
+	color: inherit;
+}
+.portfolio-list .link:hover,
+.portfolio-list .link:focus {
  box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 2px 1px rgba(46, 47, 66, 0.08);
 
 }
@@ -561,3 +633,76 @@ address {
 }
 
 /* /Portfolio section*/
+
+
+/* Modal window */
+.backdrop{
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:100;
+	width:100%;
+	height:100%;
+	background: rgba(46, 47, 66, 0.4);
+	transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+}
+.backdrop.is-hidden{
+	opacity:0;
+	pointer-events:none;
+	visibility: hidden;
+}
+.backdrop.is-hidden .modal{
+	transform: translate(-50%, -50%);
+}
+
+.modal{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(1);
+    
+	max-width: 408px;
+	min-height: 576px;
+	padding: 204px;
+
+	background: var(--modal-bg-color);
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 2px 1px rgba(0, 0, 0, 0.2);
+	border-radius: 4px;
+	transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1)
+
+}
+
+.close-btn{
+	position: absolute;
+	padding: 8px;
+	top: 24px;
+	right: 24px;
+	border-radius: 50%;
+
+	width: 24px;
+	height: 24px;
+
+    background: var(--button-secondary-border-color);
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	cursor: pointer;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+		fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.close-btn:hover,
+.close-btn:focus{
+	background-color: var(--active-nav-color);
+}
+ .close-icon{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+	
+}
+
+.close-icon:hover,
+.close-icon:focus{
+  fill:var(--accent-color);
+}
